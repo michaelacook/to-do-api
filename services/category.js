@@ -20,6 +20,11 @@ module.exports = {
           },
         },
       })
+      if (!categories) {
+        const err = new Error("Not found")
+        err.status = 404
+        return Promise.reject(err)
+      }
       return categories
     } catch (err) {
       return Promise.reject(err.message)
@@ -29,21 +34,6 @@ module.exports = {
   async getCategory(id, lists = false) {
     try {
       await Category.sync()
-      // const options = {
-      //   where: {
-      //     id,
-      //   },
-      // }
-      // if (lists) {
-      //   options["include"] = {
-      //     model: {
-      //       List,
-      //       include: {
-      //         model: ListItem,
-      //       },
-      //     },
-      //   }
-      // }
       const options = {
         where: {
           id,
@@ -56,6 +46,11 @@ module.exports = {
         },
       }
       const category = await Category.findOne(options)
+      if (!category) {
+        const err = new Error("Not found")
+        err.status = 404
+        return Promise.reject(err)
+      }
       return category
     } catch (err) {
       return Promise.reject(err.message)
