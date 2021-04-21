@@ -22,7 +22,43 @@ module.exports = {
       })
       return categories
     } catch (err) {
-      return Promise.reject(false)
+      return Promise.reject(err.message)
+    }
+  },
+
+  async getCategory(id, lists = false) {
+    try {
+      await Category.sync()
+      // const options = {
+      //   where: {
+      //     id,
+      //   },
+      // }
+      // if (lists) {
+      //   options["include"] = {
+      //     model: {
+      //       List,
+      //       include: {
+      //         model: ListItem,
+      //       },
+      //     },
+      //   }
+      // }
+      const options = {
+        where: {
+          id,
+        },
+        include: {
+          model: List,
+          include: {
+            model: ListItem,
+          },
+        },
+      }
+      const category = await Category.findOne(options)
+      return category
+    } catch (err) {
+      return Promise.reject(err.message)
     }
   },
 }
