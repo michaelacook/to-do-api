@@ -33,8 +33,8 @@ module.exports = {
 
   /**
    * Get a single category with associated Lists and ListItems
-   * @param {Number} id - primary key 
-   * @param {Object|Array} lists 
+   * @param {Number} id - primary key
+   * @param {Object|Array} lists
    * @returns {Promise} category object
    */
   async getCategory(id, lists = false) {
@@ -72,8 +72,8 @@ module.exports = {
     try {
       await Category.sync()
       const category = await Category.create({
-        userId, 
-        title
+        userId,
+        title,
       })
       return category.id
     } catch (err) {
@@ -82,7 +82,7 @@ module.exports = {
   },
 
   /**
-   * Hard delete a category in the database 
+   * Hard delete a category in the database
    * Because onDelete set to cascade, all associated List and ListItems are deleted as well
    * @param {Number} id - primary key for category
    * @returns {Promise} true
@@ -90,7 +90,7 @@ module.exports = {
   async deleteCategory(id) {
     try {
       await Category.sync()
-      const category = await Category.findByPk(id) 
+      const category = await Category.findByPk(id)
       if (!category) {
         const err = new Error("Not found")
         err.status = 404
@@ -101,5 +101,5 @@ module.exports = {
     } catch (err) {
       return Promise.reject(err)
     }
-  }
+  },
 }
