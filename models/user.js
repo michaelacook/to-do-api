@@ -6,9 +6,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(Category, {
         foreignKey: "userId",
       })
-      User.hasMany(List, {
-        foreignKey: "userId",
-      })
     }
   }
   User.init(
