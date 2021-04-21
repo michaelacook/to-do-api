@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   List.init(
     {
-      userId: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
       title: DataTypes.STRING,
     },
