@@ -3,12 +3,29 @@ const router = express.Router()
 
 const userService = require("../services/user")
 const authMiddleWare = require("../middleware/authentication")()
+const userExistsMiddleware = require("../middleware/userExists")()
+const validateUserMiddleware = require("../middleware/validateUser")()
 
-router.get("/:id", authMiddleWare, async (req, res, next) => {
+router.get(
+  "/:id",
+  authMiddleWare,
+  userExistsMiddleware,
+  async (req, res, next) => {
+    try {
+      const id = req.params.id
+      const user = await userService.getUserById(id)
+      return res.status(200).json(user)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
+router.post("/", validateUserMiddleware, async (req, res, next) => {
   try {
-    const id = req.params.id
-    const user = await userService.getUserById(id)
-    return res.status(200).json(user)
+    const { body } = req
+    const user = await userService.createUser(body)
+    return res.status(201).json(user)
   } catch (err) {
     next(err)
   }
