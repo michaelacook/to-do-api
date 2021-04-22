@@ -47,14 +47,19 @@ router.put(
   }
 )
 
-router.delete("/:id", userExistsMiddleware, async (req, res, next) => {
-  try {
-    const { id } = req.params
-    await userService.deleteUser(id)
-    return res.status(204).end()
-  } catch (err) {
-    next(err)
+router.delete(
+  "/:id",
+  authMiddleWare,
+  userExistsMiddleware,
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      await userService.deleteUser(id)
+      return res.status(204).end()
+    } catch (err) {
+      next(err)
+    }
   }
-})
+)
 
 module.exports = router
