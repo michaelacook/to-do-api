@@ -31,9 +31,17 @@ module.exports = () => {
     })
 
     it("returns 401 Unauthorized when auth credentials not sent", (done) => {
+      request(app).put("/users/1").expect(401, done)
+    })
+
+    it("returns 404 Not Found when non-existent id passed", (done) => {
       request(app)
-        .put("/users/1")
-        .expect(401, done)
+        .put("/users/1000000")
+        .auth("mcook0775@gmail.com", process.env.PASSWORD)
+        .send({
+          firstName: "Updated Name",
+        })
+        .expect(404, done)
     })
   })
 }
