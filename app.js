@@ -7,7 +7,7 @@ const createError = require("http-errors")
 const cors = require("cors")
 
 const userRouter = require("./routes/user")
-const categoryRouter = require("./routers/category")
+const categoryRouter = require("./routes/category")
 
 const app = express()
 
