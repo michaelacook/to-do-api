@@ -4,11 +4,13 @@ const path = require("path")
 const cookieParser = require("cookie-parser")
 const logger = require("morgan")
 const createError = require("http-errors")
+const cors = require("cors")
 
 const usersRouter = require("./routes/user")
 
 const app = express()
 
+app.use(cors())
 app.use(logger("dev"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
