@@ -3,7 +3,7 @@ const app = require("../../../app")
 const { assert } = require("chai")
 
 module.exports = () => {
-  describe("user routes", () => {
+  describe("GET user routes", () => {
     describe("/users/:id", () => {
       it("returns 200 OK and a user on happy path", (done) => {
         request(app)
@@ -30,7 +30,7 @@ module.exports = () => {
 
       it("returns 404 Not Found when non-existent id passed", (done) => {
         request(app)
-          .get("/users/2")
+          .get("/users/1000000")
           .auth("mcook0775@gmail.com", process.env.PASSWORD)
           .expect(404, done)
       })
