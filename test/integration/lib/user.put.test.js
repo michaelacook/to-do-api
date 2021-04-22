@@ -6,7 +6,7 @@ module.exports = () => {
   describe("PUT user routes", () => {
     it("returns 200 OK and an updated user object on happy path", (done) => {
       request(app)
-        .put("/1")
+        .put("/users/1")
         .auth("mcook0775@gmail.com", process.env.PASSWORD)
         .send({
           firstName: "Updated Name",
@@ -28,6 +28,12 @@ module.exports = () => {
           console.log(err)
           done()
         })
+    })
+
+    it("returns 401 Unauthorized when auth credentials not sent", (done) => {
+      request(app)
+        .put("/users/1")
+        .expect(401, done)
     })
   })
 }
