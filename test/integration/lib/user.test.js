@@ -8,6 +8,7 @@ module.exports = () => {
       it("returns 200 OK and a user on happy path", (done) => {
         request(app)
           .get("/users/1")
+          .auth("mcook0775@gmail.com", process.env.PASSWORD)
           .expect("Content-Type", /json/)
           .expect(200)
           .then((response) => {
@@ -20,6 +21,7 @@ module.exports = () => {
             ])
             done()
           })
+          .catch((err) => done(err))
       })
     })
   })
