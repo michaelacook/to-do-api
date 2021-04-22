@@ -6,7 +6,8 @@ const logger = require("morgan")
 const createError = require("http-errors")
 const cors = require("cors")
 
-const usersRouter = require("./routes/user")
+const userRouter = require("./routes/user")
+const categoryRouter = require("./routers/category")
 
 const app = express()
 
@@ -17,7 +18,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, "public")))
 
-app.use("/users", usersRouter)
+app.use("/users", userRouter)
+app.use("/categories", categoryRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
