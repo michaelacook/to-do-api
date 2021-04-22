@@ -20,11 +20,6 @@ module.exports = {
           },
         },
       })
-      if (!categories) {
-        const err = new Error("Not found")
-        err.status = 404
-        return Promise.reject(err)
-      }
       return categories
     } catch (err) {
       return Promise.reject(err.message)
@@ -52,11 +47,6 @@ module.exports = {
         },
       }
       const category = await Category.findOne(options)
-      if (!category) {
-        const err = new Error("Not found")
-        err.status = 404
-        return Promise.reject(err)
-      }
       return category
     } catch (err) {
       return Promise.reject(err.message)
@@ -91,11 +81,6 @@ module.exports = {
     try {
       await Category.sync()
       const category = await Category.findByPk(id)
-      if (!category) {
-        const err = new Error("Not found")
-        err.status = 404
-        return Promise.reject(err)
-      }
       await category.destroy()
       return true
     } catch (err) {
