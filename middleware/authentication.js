@@ -13,7 +13,6 @@ module.exports = () => {
   return async function (req, res, next) {
     let message
     const credentials = auth(req)
-    console.log(credentials)
     if (credentials) {
       const { name, pass } = credentials
       const user = await userService.getUser(name)
