@@ -37,6 +37,20 @@ module.exports = {
   },
 
   /**
+   * Get all users in the database
+   * Private method. Used for testing purposes
+   * @returns {Object|Array} users
+   */
+  async _getAllUsers() {
+    try {
+      const users = await User.findAll()
+      return users
+    } catch (err) {
+      return Promise.reject(err)
+    }
+  },
+
+  /**
    * Add a user to the database
    * @param {Object} payload - user properties
    * @returns {Promise} created user object
