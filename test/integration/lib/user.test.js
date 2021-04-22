@@ -23,6 +23,10 @@ module.exports = () => {
           })
           .catch((err) => done(err))
       })
+
+      it("returns 401 Unauthorized when auth credentials not given", (done) => {
+        request(app).get("/users/1").expect(401, done)
+      })
     })
   })
 }
