@@ -15,11 +15,6 @@ module.exports = {
           email,
         },
       })
-      if (!user) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       return user
     } catch (err) {
       return Promise.reject(err)
@@ -35,11 +30,6 @@ module.exports = {
     try {
       await User.sync()
       const user = await User.findByPk(id)
-      if (!user) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       return user
     } catch (err) {
       return Promise.reject(err)
@@ -77,11 +67,6 @@ module.exports = {
     try {
       await User.sync()
       const user = await User.findByPk(id)
-      if (!user) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       for (let key in payload) {
         if (key === "password") {
           user[key] = bcrypt.hashSync(payload[key], 8)
@@ -107,11 +92,6 @@ module.exports = {
     try {
       await User.sync()
       const user = await User.findByPk(id)
-      if (!user) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       await user.destroy()
       return true
     } catch (err) {
