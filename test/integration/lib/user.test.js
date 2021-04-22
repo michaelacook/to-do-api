@@ -1,0 +1,26 @@
+const request = require("supertest")
+const app = require("../../../app")
+const { assert } = require("chai")
+
+module.exports = () => {
+  describe("user routes", () => {
+    describe("/users/:id", () => {
+      it("returns 200 OK and a user on happy path", (done) => {
+        request(app)
+          .get("/users/1")
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then((response) => {
+            assert.isObject(response.body)
+            assert.containsAllKeys(response.body, [
+              "email",
+              "password",
+              "firstName",
+              "lastName",
+            ])
+            done()
+          })
+      })
+    })
+  })
+}

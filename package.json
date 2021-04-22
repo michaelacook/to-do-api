@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "pretty": "prettier --write --no-semi .",
-    "test-units": "mocha ./test/unit/index.js",
-    "test-integrations": "mocha ./test/integration/index.js"
+    "test": "mocha ./test/integration/index.js"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
