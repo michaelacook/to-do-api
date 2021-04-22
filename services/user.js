@@ -27,6 +27,26 @@ module.exports = {
   },
 
   /**
+   * Retrieve a user from the database by primary key
+   * @param {Number} id - user primary key
+   * @returns {Promise} user object
+   */
+  async getUserById(id) {
+    try {
+      await User.sync()
+      const user = await User.findByPk(id)
+      if (!user) {
+        const err = new Error("Not found")
+        err.status = 404
+        throw err
+      }
+      return user
+    } catch (err) {
+      return Promise.reject(err)
+    }
+  },
+
+  /**
    * Add a user to the database
    * @param {Object} payload - user properties
    * @returns {Promise} created user object
