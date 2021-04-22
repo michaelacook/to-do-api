@@ -9,9 +9,9 @@ module.exports = () => {
   return async function (req, res, next) {
     const { id } = req.params
     const category = await categoryService.getCategory(id)
-    if (!category) {
-      return res.status(404).end()
+    if (category) {
+      return next()
     }
-    return next()
+    return res.status(404).end()
   }
 }
