@@ -76,7 +76,8 @@ module.exports = {
         user[key] = payload[key]
         await user.save()
       }
-      return true
+      await user.reload()
+      return user
     } catch (err) {
       return Promise.reject(err)
     }
