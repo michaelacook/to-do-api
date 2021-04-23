@@ -22,6 +22,8 @@ module.exports = () => {
             "password",
             "firstName",
             "lastName",
+            "createdAt",
+            "updatedAt",
           ])
           done()
         })
