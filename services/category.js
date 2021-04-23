@@ -56,7 +56,7 @@ module.exports = {
   /**
    * Add a new category to the database
    * @param {Object} destructured payload containing userId and title
-   * @returns {Promise} id - primary key for created category
+   * @returns {Promise} created category
    */
   async addCategory({ userId, title }) {
     try {
@@ -65,7 +65,7 @@ module.exports = {
         userId,
         title,
       })
-      return category.id
+      return category
     } catch (err) {
       return Promise.reject(err)
     }
