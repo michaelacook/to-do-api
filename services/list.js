@@ -26,7 +26,7 @@ module.exports = {
   /**
    * Add a new to-do list to the database
    * @param {Object} destructured - payload containing categoryId and title
-   * @returns {Promise} id for created list
+   * @returns {Promise} created list
    */
   async addList({ categoryId, title }) {
     try {
@@ -35,7 +35,7 @@ module.exports = {
         categoryId,
         title,
       })
-      return list.id
+      return list
     } catch (err) {
       return Promise.reject(err)
     }
