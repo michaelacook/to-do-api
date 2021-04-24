@@ -46,7 +46,7 @@ module.exports = {
    * @param {Object} destructured - payload containing list id and new title
    * @returns {Promise} true
    */
-  async updateListTitle({ id, title }) {
+  async updateListTitle(id, title) {
     try {
       await List.sync()
       const list = await List.findByPk(id)
