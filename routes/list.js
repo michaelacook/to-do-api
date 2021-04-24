@@ -4,6 +4,7 @@ const router = express.Router()
 const listService = require("../services/list")
 const authMiddleware = require("../middleware/authentication")()
 const listExistsMiddleware = require("../middleware/listExists")()
+const validateListMiddleware = require("../middleware/validateList")()
 
 router.get(
   "/:id",
@@ -20,7 +21,20 @@ router.get(
   }
 )
 
-// router.post()
+router.post(
+  "/",
+  authMiddleware,
+  validateListMiddleware,
+  async (req, res, next) => {
+    try {
+      const { body } = req
+      const list = await listService.addList(body)
+      return res.status(201).json(list)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
 
 // router.put()
 
