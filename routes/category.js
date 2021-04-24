@@ -46,4 +46,28 @@ router.post(
   }
 )
 
+router.put(
+  "/:id",
+  authMiddleWare,
+  categoryExistsMiddleWare,
+  (req, res, next) => {
+    if (!req.body.title) {
+      return res.status(400).end()
+    }
+    return next()
+  },
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const {
+        body: { title },
+      } = req
+      const category = await categoryService.updateCategoryTitle(id, title)
+      return res.status(200).json(category)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
 module.exports = router
