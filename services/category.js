@@ -86,20 +86,20 @@ module.exports = {
           id: id,
         },
         include: {
-          model: List, 
+          model: List,
           include: {
-            model: ListItem
-          }
-        }
+            model: ListItem,
+          },
+        },
       })
-      category.title = title 
+      category.title = title
       await category.save()
       await category.reload()
       return category
     } catch (err) {
       return Promise.reject(err)
     }
-  }
+  },
 
   /**
    * Hard delete a category in the database
