@@ -70,4 +70,19 @@ router.put(
   }
 )
 
+router.delete(
+  "/:id",
+  authMiddleWare,
+  categoryExistsMiddleWare,
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      await categoryService.deleteCategory(id)
+      return res.status(204).end()
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
 module.exports = router
