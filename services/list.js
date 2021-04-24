@@ -44,7 +44,7 @@ module.exports = {
   /**
    * Update a list's title
    * @param {Object} destructured - payload containing list id and new title
-   * @returns {Promise} true
+   * @returns {Promise} updated list
    */
   async updateListTitle(id, title) {
     try {
@@ -52,7 +52,8 @@ module.exports = {
       const list = await List.findByPk(id)
       list.title = title
       await list.save()
-      return true
+      await list.reload()
+      return list
     } catch (err) {
       return Promise.reject(err)
     }
