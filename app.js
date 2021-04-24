@@ -8,6 +8,7 @@ const cors = require("cors")
 
 const userRouter = require("./routes/user")
 const categoryRouter = require("./routes/category")
+const listRouter = require("./routes/list")
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/users", userRouter)
 app.use("/categories", categoryRouter)
+app.use("/lists", listRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
