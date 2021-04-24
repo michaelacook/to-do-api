@@ -1,4 +1,4 @@
-const { List, ListItem } = require("../models/index")
+const { Category, List, ListItem } = require("../models/index")
 
 module.exports = {
   /**
@@ -20,6 +20,29 @@ module.exports = {
       return list
     } catch (err) {
       return Promise.reject(err)
+    }
+  },
+
+  /**
+   * Get all lists for a category 
+   * For testing purposes
+   * @param {Number} categoryId 
+   * @returns {Object|Array}
+   */
+  async _getAllLists(categoryId) {
+    try {
+      await Category.sync()
+      const category = await Category.findOne({
+        where: {
+          id: categoryId,
+        },
+        include: {
+          model: List,
+        },
+      })
+      return category.Lists
+    } catch (err) {
+      Promise.reject(err)
     }
   },
 
