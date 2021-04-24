@@ -17,11 +17,6 @@ module.exports = {
           model: ListItem,
         },
       })
-      if (!list) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       return list
     } catch (err) {
       return Promise.reject(err)
@@ -55,11 +50,6 @@ module.exports = {
     try {
       await List.sync()
       const list = await List.findByPk(id)
-      if (!list) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       list.title = title
       await list.save()
       return true
@@ -78,11 +68,6 @@ module.exports = {
     try {
       await List.sync()
       const list = await List.findByPk(id)
-      if (!list) {
-        const err = new Error("Not found")
-        err.status = 404
-        throw err
-      }
       await list.destroy()
       return true
     } catch (err) {
