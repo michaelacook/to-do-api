@@ -72,6 +72,36 @@ module.exports = {
   },
 
   /**
+   * Update a category's title in the database
+   * Returns updated category with all associated data
+   * @param {Number} id - primary key
+   * @param {String} title - new title
+   * @returns {Object} updated category
+   */
+  async updateCategoryTitle(id, title) {
+    try {
+      await Category.sync()
+      const category = await Category.findOne({
+        where: {
+          id: id,
+        },
+        include: {
+          model: List, 
+          include: {
+            model: ListItem
+          }
+        }
+      })
+      category.title = title 
+      await category.save()
+      await category.reload()
+      return category
+    } catch (err) {
+      return Promise.reject(err)
+    }
+  }
+
+  /**
    * Hard delete a category in the database
    * Because onDelete set to cascade, all associated List and ListItems are deleted as well
    * @param {Number} id - primary key for category
