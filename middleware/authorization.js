@@ -30,8 +30,10 @@ module.exports = () => {
     if (baseUrl === "categories") {
       if (id) {
         const category = await categoryService.getCategory(id)
-        if (category.userId !== userId) {
-          return res.status(401).json(message)
+        if (category) {
+          if (category.userId !== userId) {
+            return res.status(401).json(message)
+          }
         }
       }
     }
@@ -39,8 +41,10 @@ module.exports = () => {
     if (baseUrl === "users") {
       if (id) {
         const user = await userService.getUserById(id)
-        if (user.id !== userId) {
-          return res.status(401).json(message)
+        if (user) {
+          if (user.id !== userId) {
+            return res.status(401).json(message)
+          }
         }
       }
     }
@@ -48,9 +52,11 @@ module.exports = () => {
     if (baseUrl === "lists") {
       if (id) {
         const list = await listService.getList(id)
-        const category = await categoryService.getCategory(list.categoryId)
-        if (category.userId !== userId) {
-          return res.status(401).json(message)
+        if (list) {
+          const category = await categoryService.getCategory(list.categoryId)
+          if (category.userId !== userId) {
+            return res.status(401).json(message)
+          }
         }
       }
     }
@@ -58,10 +64,12 @@ module.exports = () => {
     if (baseUrl === "list-items") {
       if (id) {
         const item = await listItemService.getItem(id)
-        const list = await listService.getList(item.listId)
-        const category = await categoryService.getCategory(list.categoryId)
-        if (category.userId !== userId) {
-          return res.status(401).json(message)
+        if (item) {
+          const list = await listService.getList(item.listId)
+          const category = await categoryService.getCategory(list.categoryId)
+          if (category.userId !== userId) {
+            return res.status(401).json(message)
+          }
         }
       }
     }
