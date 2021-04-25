@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   ListItem.init(
     {
-      userId: DataTypes.INTEGER,
       listId: DataTypes.INTEGER,
       content: DataTypes.TEXT,
       comments: DataTypes.TEXT,
