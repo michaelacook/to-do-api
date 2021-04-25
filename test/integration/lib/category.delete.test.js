@@ -1,3 +1,4 @@
+const { assert } = require("chai")
 const request = require("supertest")
 const app = require("../../../app")
 
@@ -17,6 +18,24 @@ module.exports = () => {
 
     it("returns 401 Unauthorized when auth credentials not sent", (done) => {
       request(app).delete(`/categories/1`).expect(401, done)
+    })
+
+    it("returns 401 Unauthorized when requesting another user's data", (done) => {
+      request(app)
+        .delete(`/categories/4`)
+        .auth("mcook0775@gmail.com", process.env.PASSWORD)
+        .expect(401)
+        .then((response) => {
+          assert.equal(
+            "You do not have authorization to delete the requested resource",
+            response.body
+          )
+          done()
+        })
+        .catch((err) => {
+          console.log(err)
+          done()
+        })
     })
 
     it("returns 404 Bad Request when sent a non-existent id", (done) => {

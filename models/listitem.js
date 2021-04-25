@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ List }) {
       ListItem.belongsTo(List, {
         foreignKey: "listId",
+        onDelete: "CASCADE",
       })
     }
   }
