@@ -10,18 +10,28 @@ const userService = require("../services/user")
  */
 module.exports = () => {
   return async function (req, res, next) {
-    const userId = req.user.id
-    const { baseUrl } = req
+    const userId = req.user.id,
+      { baseUrl } = req
+
     let id
+
     if (req.params.id) {
       id = req.params.id
     }
+
+    const messages = {
+      GET: "You do not have authorization to access the requested resource.",
+      PUT: "You do not have authorization to modify the requested resource.",
+      DELETE: "You do not have authorization to delete the requested resource",
+    }
+
+    const message = messages[req.method]
 
     if (baseUrl === "categories") {
       if (id) {
         const category = await categoryService.getCategory(id)
         if (category.userId !== userId) {
-          return res.status(401).end()
+          return res.status(401).json(message)
         }
       }
     }
@@ -30,7 +40,7 @@ module.exports = () => {
       if (id) {
         const user = await userService.getUserById(id)
         if (user.id !== userId) {
-          return res.status(401).end()
+          return res.status(401).json(message)
         }
       }
     }
@@ -40,7 +50,7 @@ module.exports = () => {
         const list = await listService.getList(id)
         const category = await categoryService.getCategory(list.categoryId)
         if (category.userId !== userId) {
-          return res.status(401).end()
+          return res.status(401).json(message)
         }
       }
     }
@@ -51,7 +61,7 @@ module.exports = () => {
         const list = await listService.getList(item.listId)
         const category = await categoryService.getCategory(list.categoryId)
         if (category.userId !== userId) {
-          return res.status(401).end()
+          return res.status(401).json(message)
         }
       }
     }
