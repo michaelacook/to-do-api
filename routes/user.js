@@ -5,10 +5,12 @@ const userService = require("../services/user")
 const authMiddleWare = require("../middleware/authentication")()
 const userExistsMiddleware = require("../middleware/userExists")()
 const validateUserMiddleware = require("../middleware/validateUser")()
+const authorizationMiddleware = require("../middleware/authorization")()
 
 router.get(
   "/:id",
   authMiddleWare,
+  authorizationMiddleware,
   userExistsMiddleware,
   async (req, res, next) => {
     try {
@@ -34,6 +36,7 @@ router.post("/", validateUserMiddleware, async (req, res, next) => {
 router.put(
   "/:id",
   authMiddleWare,
+  authorizationMiddleware,
   userExistsMiddleware,
   async (req, res, next) => {
     try {
@@ -50,6 +53,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleWare,
+  authorizationMiddleware,
   userExistsMiddleware,
   async (req, res, next) => {
     try {

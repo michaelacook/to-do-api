@@ -3,12 +3,14 @@ const router = express.Router()
 
 const listItemService = require("../services/listItem")
 const authMiddleware = require("../middleware/authentication")()
+const authorizationMiddleware = require("../middleware/authorization")()
 const listItemExistsMiddleware = require("../middleware/listItemExists")()
 const validateListItemMiddleware = require("../middleware/validateListItem")()
 
 router.get(
   "/:id",
   authMiddleware,
+  authorizationMiddleware,
   listItemExistsMiddleware,
   async (req, res, next) => {
     try {
@@ -24,6 +26,7 @@ router.get(
 router.post(
   "/",
   authMiddleware,
+  authorizationMiddleware,
   validateListItemMiddleware,
   async (req, res, next) => {
     try {
@@ -39,6 +42,7 @@ router.post(
 router.put(
   "/:id",
   authMiddleware,
+  authorizationMiddleware,
   listItemExistsMiddleware,
   (req, res, next) => {
     if (!Object.keys(req.body).length) {
@@ -61,6 +65,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleware,
+  authorizationMiddleware,
   listItemExistsMiddleware,
   async (req, res, next) => {
     try {

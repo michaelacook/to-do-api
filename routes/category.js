@@ -3,6 +3,7 @@ const router = express.Router()
 
 const categoryService = require("../services/category")
 const authMiddleWare = require("../middleware/authentication")()
+const authorizationMiddleware = require("../middleware/authorization")()
 const categoryExistsMiddleWare = require("../middleware/categoryExists")()
 const validateCategoryMiddleware = require("../middleware/validateCategory")()
 
@@ -19,6 +20,7 @@ router.get("/", authMiddleWare, async (req, res, next) => {
 router.get(
   "/:id",
   authMiddleWare,
+  authorizationMiddleware,
   categoryExistsMiddleWare,
   async (req, res, next) => {
     try {
@@ -49,6 +51,7 @@ router.post(
 router.put(
   "/:id",
   authMiddleWare,
+  authorizationMiddleware,
   categoryExistsMiddleWare,
   (req, res, next) => {
     if (!req.body.title) {
@@ -73,6 +76,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleWare,
+  authorizationMiddleware,
   categoryExistsMiddleWare,
   async (req, res, next) => {
     try {

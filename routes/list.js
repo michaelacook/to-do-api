@@ -5,10 +5,12 @@ const listService = require("../services/list")
 const authMiddleware = require("../middleware/authentication")()
 const listExistsMiddleware = require("../middleware/listExists")()
 const validateListMiddleware = require("../middleware/validateList")()
+const authorizationMiddleware = require("../middleware/authorization")()
 
 router.get(
   "/:id",
   authMiddleware,
+  authorizationMiddleware,
   listExistsMiddleware,
   async (req, res, next) => {
     try {
@@ -39,6 +41,7 @@ router.post(
 router.put(
   "/:id",
   authMiddleware,
+  authorizationMiddleware,
   listExistsMiddleware,
   (req, res, next) => {
     if (!req.body.title) {
@@ -61,6 +64,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleware,
+  authorizationMiddleware,
   listExistsMiddleware,
   async (req, res, next) => {
     try {
