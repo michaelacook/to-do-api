@@ -62,9 +62,8 @@ module.exports = () => {
     }
 
     if (baseUrl === "/list-items") {
-      console.log(baseUrl)
       if (id) {
-        const item = await listItemService.getItem(id)
+        const item = await listItemService.getListItem(id)
         if (item) {
           const list = await listService.getList(item.listId)
           const category = await categoryService.getCategory(list.categoryId)
