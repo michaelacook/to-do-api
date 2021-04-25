@@ -17,6 +17,7 @@ module.exports = () => {
         .then((response) => {
           assert.isObject(response.body)
           assert.hasAllDeepKeys(response.body, [
+            "id",
             "email",
             "password",
             "firstName",

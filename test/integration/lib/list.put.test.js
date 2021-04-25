@@ -18,6 +18,7 @@ module.exports = () => {
           assert.isObject(response.body)
           assert.hasAllDeepKeys(response.body, [
             "id",
+            "categoryId",
             "title",
             "createdAt",
             "updatedAt",

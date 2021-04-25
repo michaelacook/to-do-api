@@ -38,10 +38,12 @@ module.exports = () => {
           .then((response) => {
             assert.isObject(response.body)
             assert.hasAllDeepKeys(response.body, [
+              "id",
               "userId",
               "title",
               "createdAt",
               "updatedAt",
+              "Lists",
             ])
             done()
           })
