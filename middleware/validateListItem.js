@@ -1,5 +1,5 @@
 /**
- * Validate client data to create new listItem 
+ * Validate client data to create new listItem
  * If data don't contain required properties return 404 Bad Request
  */
 module.exports = () => {
