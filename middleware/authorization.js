@@ -27,7 +27,7 @@ module.exports = () => {
 
     const message = messages[req.method]
 
-    if (baseUrl === "categories") {
+    if (baseUrl === "/categories") {
       if (id) {
         const category = await categoryService.getCategory(id)
         if (category) {
@@ -38,7 +38,7 @@ module.exports = () => {
       }
     }
 
-    if (baseUrl === "users") {
+    if (baseUrl === "/users") {
       if (id) {
         const user = await userService.getUserById(id)
         if (user) {
@@ -49,7 +49,7 @@ module.exports = () => {
       }
     }
 
-    if (baseUrl === "lists") {
+    if (baseUrl === "/lists") {
       if (id) {
         const list = await listService.getList(id)
         if (list) {
@@ -61,7 +61,8 @@ module.exports = () => {
       }
     }
 
-    if (baseUrl === "list-items") {
+    if (baseUrl === "/list-items") {
+      console.log(baseUrl)
       if (id) {
         const item = await listItemService.getItem(id)
         if (item) {
