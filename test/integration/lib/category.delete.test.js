@@ -22,13 +22,13 @@ module.exports = () => {
 
     it("returns 401 Unauthorized when requesting another user's data", (done) => {
       request(app)
-        .delete(`/categories/4`)
+        .delete(`/categories/2`)
         .auth("mcook0775@gmail.com", process.env.PASSWORD)
         .expect(401)
         .then((response) => {
           assert.equal(
-            "You do not have authorization to delete the requested resource",
-            response.body
+            response.body,
+            "You do not have authorization to delete the requested resource."
           )
           done()
         })

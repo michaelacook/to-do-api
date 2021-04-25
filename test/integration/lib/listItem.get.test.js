@@ -33,6 +33,25 @@ module.exports = () => {
       request(app).get("/list-items/1").expect(401, done)
     })
 
+    it("returns 401 Unauthorized when requesting another user's data", (done) => {
+      request(app)
+        .get("/list-items/3")
+        .auth("mcook0775@gmail.com", process.env.PASSWORD)
+        .set("Accept", "application/json")
+        .expect(401)
+        .then((response) => {
+          assert.equal(
+            response.body,
+            "You do not have authorization to access the requested resource."
+          )
+          done()
+        })
+        .catch((err) => {
+          console.log(err)
+          done()
+        })
+    })
+
     it("returns 404 Not Found when sent a non-existent id", (done) => {
       request(app)
         .get("list-items/100000")
