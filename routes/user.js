@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 
 const userService = require("../services/user")
+const userActions = require("../actions/user")
+
 const authMiddleWare = require("../middleware/authentication")()
 const userExistsMiddleware = require("../middleware/userExists")()
 const validateUserMiddleware = require("../middleware/validateUser")()
@@ -27,6 +29,7 @@ router.post("/", validateUserMiddleware, async (req, res, next) => {
   try {
     const { body } = req
     const user = await userService.createUser(body)
+    await userActions.initializeAccount(user)
     return res.status(201).json(user)
   } catch (err) {
     next(err)
