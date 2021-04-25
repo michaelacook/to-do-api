@@ -58,6 +58,19 @@ router.put(
   }
 )
 
-// router.delete()
+router.delete(
+  "/:id",
+  authMiddleware,
+  listExistsMiddleware,
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      await listService.deleteList(id)
+      return res.status(204).end()
+    } catch (err) {
+      next(err)
+    }
+  }
+)
 
 module.exports = router

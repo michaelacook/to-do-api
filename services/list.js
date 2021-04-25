@@ -24,9 +24,9 @@ module.exports = {
   },
 
   /**
-   * Get all lists for a category 
+   * Get all lists for a category
    * For testing purposes
-   * @param {Number} categoryId 
+   * @param {Number} categoryId
    * @returns {Object|Array}
    */
   async _getAllLists(categoryId) {
