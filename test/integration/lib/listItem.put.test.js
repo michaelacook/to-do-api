@@ -15,7 +15,7 @@ module.exports = () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .then((response) => {
-          assert.isObject(reponse.body)
+          assert.isObject(response.body)
           assert.hasAllDeepKeys(response.body, [
             "id",
             "listId",
