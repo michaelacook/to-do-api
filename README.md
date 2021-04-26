@@ -100,8 +100,6 @@ This project uses integration tests to test server responses rather than unit te
 - Data Params
   - Any
 - Error Responses
-  - 400 Bad Request
-    - Results from not sending the required data params
   - 401 Unauthorized
     - Results from not sending Basic Auth credentials
   - 404 Not Found
