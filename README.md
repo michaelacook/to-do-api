@@ -91,7 +91,7 @@ This project uses integration tests to test server responses rather than unit te
     }
     ```
 
-#### `/users:id`
+#### `/users/:id`
 
 - Method
   - PUT
@@ -122,7 +122,7 @@ This project uses integration tests to test server responses rather than unit te
     }
     ```
 
-#### `/users:id`
+#### `/users/:id`
 
 - Method
   - DELETE
