@@ -36,7 +36,7 @@ This project uses integration tests to test server responses rather than unit te
   - Basic Auth
 - URL Params
   - Required
-    - `id=[integer]`
+    - `id=[number]`
 - Error Responses
   - 401 Unauthorized
     - Results from not sending Basic Auth credentials or attempting to access another user
@@ -96,7 +96,7 @@ This project uses integration tests to test server responses rather than unit te
   - Basic Auth
 - URL Params
   - Required
-    - `id` - user primary key
+    - `id=[number]`
 - Data Params
   - Any
 - Error Responses
@@ -127,7 +127,7 @@ This project uses integration tests to test server responses rather than unit te
   - Basic Auth
 - URL Params
   - Required
-    - `id` - user primary key
+    - `id=[number]`
 - Error Responses
   - 401 Unauthorized
     - Results from not sending Basic Auth credentials
