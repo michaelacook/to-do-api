@@ -45,7 +45,7 @@ This project uses integration tests to test server responses rather than unit te
 - Successful Response
   - 200 OK
   * Content:
-  ```json
+  ```
   {
     "id": int,
     "email": "string",
@@ -76,7 +76,7 @@ This project uses integration tests to test server responses rather than unit te
 - Successful Response
   - 200 OK
   * Content:
-    ```json
+    ```
     {
       "id": int,
       "email": "string",
@@ -107,7 +107,7 @@ This project uses integration tests to test server responses rather than unit te
 - Successful Response
   - 200 OK
   * Content:
-    ```json
+    ```
     {
       "id": int,
       "email": "string",
