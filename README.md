@@ -39,24 +39,24 @@ This project uses integration tests to test server responses rather than unit te
   - Basic Auth
 - URL Params
   - Required
-    - `id=[number]`
+    - `id=[number]` user primary key
 - Error Responses
   - 401 Unauthorized
     - Results from not sending Basic Auth credentials or attempting to access another user
   - 404 Not Found
     - Results from attempting to access a non-existent user
 - Successful Response
-  - 200 OK
-  * Content:
+  - `200 OK`
+  - Content:
   ```
   {
     "id": int,
-    "email": "string",
-    "password": "string",
-    "firstName": "string",
-    "lastName": "string",
-    "createdAt": "string",
-    "updatedAt": "string"
+    "email": string",
+    "password": string",
+    "firstName": string",
+    "lastName": string",
+    "createdAt": string",
+    "updatedAt": string"
   }
   ```
 
@@ -77,19 +77,19 @@ This project uses integration tests to test server responses rather than unit te
   - 400 Bad Request
     - Results from not sending the required data params
 - Successful Response
-  - 200 OK
+  - `200 OK`
   * Content:
-    ```
-    {
-      "id": int,
-      "email": "string",
-      "password": "string",
-      "firstName": "string",
-      "lastName": "string",
-      "createdAt": "string",
-      "updatedAt": "string"
-    }
-    ```
+  ```
+  {
+    "id": int,
+    "email": string",
+    "password": string",
+    "firstName": string",
+    "lastName": string",
+    "createdAt": string",
+    "updatedAt": string"
+  }
+  ```
 
 #### `/users/:id`
 
@@ -99,7 +99,7 @@ This project uses integration tests to test server responses rather than unit te
   - Basic Auth
 - URL Params
   - Required
-    - `id=[number]`
+    - `id=[number]` user primary key
 - Data Params
   - Any
 - Error Responses
@@ -108,19 +108,19 @@ This project uses integration tests to test server responses rather than unit te
   - 404 Not Found
     - Results from attempting to update a non-existent user
 - Successful Response
-  - 200 OK
-  * Content:
-    ```
-    {
-      "id": int,
-      "email": "string",
-      "password": "string",
-      "firstName": "string",
-      "lastName": "string",
-      "createdAt": "string",
-      "updatedAt": "string"
-    }
-    ```
+  - `200 OK`
+  - Content:
+  ```
+  {
+    "id": int,
+    "email": string",
+    "password": string",
+    "firstName": string",
+    "lastName": string",
+    "createdAt": string",
+    "updatedAt": string"
+  }
+  ```
 
 #### `/users/:id`
 
@@ -130,14 +130,163 @@ This project uses integration tests to test server responses rather than unit te
   - Basic Auth
 - URL Params
   - Required
-    - `id=[number]`
+    - `id=[number]` user primary key
 - Error Responses
   - 401 Unauthorized
     - Results from not sending Basic Auth credentials
   - 404 Not Found
     - Results from attempting to update a non-existent user
 - Successful Response
-  - 204 No Content
+  - `204 No Content`
+
+
+#### `/categories`
+- Method
+  - GET
+- Authentication
+  - Basic Auth
+- Error Responses
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+- Success Response
+  - `200 OK` 
+  - Content: 
+  ```
+  [
+    {
+      "id",
+      "userId": int,
+      "title": "string",
+      "createdAt": "string",
+      "updatedAt": "string",
+      "Lists": [
+        {
+          "id": int,
+          "categoryId": int,
+          "title": "string",
+          "createdAt": "string",
+          "updatedAt": "string",
+          "ListItems": [
+            {
+              "id": int,
+              "listId": int,
+              "content": "string",
+              "comments": "string",
+              "complete": boolean, 
+              "createdAt": "string",
+              "updatedAt": "string
+            }
+          ]
+        }
+      ],
+      "createdAt": "string",
+      "updatedAt": "string"
+    }
+  ]
+  ```
+
+#### `/categories/:id`
+- Method
+  - GET 
+- Authentication 
+  - Basic Auth 
+- URL Params 
+  - Required 
+    - `id=[number]` category primary key
+- Error Responses 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credentials
+    - Also results form requesting another user's data
+  - 404 Not Found 
+- Success Response
+  - `200 OK` 
+  - Content:
+  ```
+  {
+    "id": int, 
+    "userId": int, 
+    "title": string, 
+    "createdAt": string, 
+    "updatedAt": string, 
+    "Lists": array
+  }
+  ```
+
+#### `/categories`
+- Method 
+  - POST 
+- Authentication 
+  - Basic Auth 
+- Data Params 
+  - Required 
+    - `userId=[number]` - user primary key 
+    - `title=[string]`
+- Error Responses 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credentials 
+  - 400 Bad Request 
+    - Results from not sending required data params 
+- Success Response 
+  - `201 Created` 
+  - Content 
+  ```
+  {
+    "id": int, 
+    "userId": int, 
+    "title": string, 
+    "createdAt": string, 
+    "updatedAt": string
+  }
+  ```
+
+#### `/categories/:id`
+- Method 
+  - PUT 
+- Authentication 
+  - Basic Auth
+- URL Params 
+  - Required 
+    - `id` - category primary key
+- Data Params 
+  - Required 
+    - `title=[string]`
+    - Currently only the title can be updated
+- Error Responses 
+  - 400 Bad Request 
+    - Results from not sending a `title` value 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credentials 
+    - Also results from attempting to update another user's data 
+  - 404 Not Found
+- Success Response
+  - `200 OK`
+  - Content:
+  ```
+  {
+    "id": int, 
+    "userId": int, 
+    "title": string, 
+    "createdAt": string, 
+    "updatedAt": string, 
+    "Lists": array
+  }
+  ```
+
+#### `/categories/:id`
+- Method 
+  - DELETE 
+- Authentication 
+  - Basic Auth 
+- URL Params 
+  - Required 
+    - `id=[number]` - category primary key 
+- Error Responses 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credentials 
+    - Also results from attempting to delete another user's data 
+  - 404 Not Found 
+- Success Response 
+  - `204 No Content`
 
 ## License
 
