@@ -6,13 +6,18 @@
 
 A REST API for a to do list application. The motivation for this project was practical - I need a to do app that I will actually use, so I decided to make one myself to get practice with database programming and writing server tests. A future project will create a React client to consume the API.
 
-## Technologies
+## Running Locally 
 
-- Node
-- Express
-- Sequelize
-- PostgreSQL
-- SuperTest
+`git clone https://github.com/michaelacook/to-do-api.git`
+
+`cd /path/to/project && npm install`
+
+`npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all`
+
+`npm start`
+
+## Stack 
+The API runs on Node.js and Express.js, and a PostgreSQL database. SQLite is used in development.
 
 ## About
 At a high level, the application allows users to create categories, or folders, which contain lists. Lists contain list items. CRUD operations can be performed on categories, lists, and list items. It's pretty basic.
