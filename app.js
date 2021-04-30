@@ -16,7 +16,7 @@ const app = express()
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to my to do list API! To get view the documentation visit https://github.com/michaelacook/to-do-api#endpoints"
+    message: "Welcome to my to do list API! To get started, view the documentation visit https://github.com/michaelacook/to-do-api#endpoints"
   })
 })
 app.use(cors())
