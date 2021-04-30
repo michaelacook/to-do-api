@@ -28,7 +28,7 @@ I have attempted to keep the organization of the codebase as simple as possible 
 
 ### Authentication and Authorization
 
-The project uses the HTTP Basic Authentication protocol. Protected routes run authentication middleware to authenticate the client with the server, and send 401 Unauthorized responses when email and password are not present or incorrect. Most routes run authorization middleware that checks permissions and sends a 401 Unauthorized response if the client attempts to request a resource that does not belong to them. Authorization is not required for POST requests and other requests where the resource is fetched using the client's id passed from authentication middleware to the controller.
+The project uses the HTTP Basic Authentication protocol. Protected routes run authentication middleware to authenticate the client with the server, and send 401 Unauthorized responses when email and password are not present or incorrect. Most routes run authorization middleware that checks permissions and sends a 401 Unauthorized response if the client attempts to request a resource that does not belong to them. Authorization is not required where the resource is fetched using the client's id passed from authentication middleware to the controller.
 
 ### Testing
 
