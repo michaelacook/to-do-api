@@ -14,15 +14,16 @@ const listItemRouter = require("./routes/listItem")
 
 const app = express()
 
+app.use(cors())
+app.use(logger("dev"))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to my to-do list API! To view the documentation visit https://github.com/michaelacook/to-do-api#endpoints"
   })
 })
-app.use(cors())
-app.use(logger("dev"))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
 
 app.use("/users", userRouter)
 app.use("/categories", categoryRouter)
