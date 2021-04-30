@@ -14,6 +14,11 @@ const listItemRouter = require("./routes/listItem")
 
 const app = express()
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to my to do list API! To get view the documentation visit https://github.com/michaelacook/to-do-api#endpoints"
+  })
+})
 app.use(cors())
 app.use(logger("dev"))
 app.use(express.json())
