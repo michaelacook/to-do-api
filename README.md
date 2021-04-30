@@ -392,6 +392,116 @@ This project uses integration tests to test server responses rather than unit te
 - Success Response 
   - `204 No Content`
 
+
+#### `/list-items/:id`
+- Method 
+  - GET 
+- Authentication 
+  - Basic Auth 
+- URL Params 
+  - Required 
+    - `id=[number]` list item primary key
+- Error Responses 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credential s
+    - Also results from attempting to access another user's data 
+  - 404 Not Foun d
+- Success Response 
+  - `200 OK` 
+  - Content: 
+  ```
+  {
+    "id": int, 
+    "listId": int,
+    "content": string, 
+    "comments": string,
+    "complete": bool,
+    "createdAt": string,
+    "updatedAt": string
+  }
+  ```
+
+#### `/list-items`
+- Method 
+  - POST 
+- Authentication 
+  - Basic Auth 
+- Data Params 
+  - Required 
+    - `listId=[number]` primary key for associated list 
+    - `content=[string]` to-do content
+  - Optional 
+    - `comments=[string]`
+    - `complete=[boolean]`
+- Error Responses 
+  - 400 Bad Request 
+    - Results from not sending the required data params 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credentials 
+- Success Response 
+  - `201 Created`
+  - Content: 
+  ```
+  {
+    "id": int, 
+    "listId": int,
+    "content": string, 
+    "comments": string,
+    "complete": bool,
+    "createdAt": string,
+    "updatedAt": string
+  }
+  ```
+
+#### `/list-items/:id`
+- Method 
+  - PUT 
+- Authentication 
+  - Basic Auth 
+- URL Params 
+  - Required
+    - `id=[number]` list item primary key
+- Data Params 
+  - Required 
+    - Any
+    - Sending a PUT request with no data params results in a 400 Bad Request
+- Error Responses 
+  - 400 Bad Request 
+  - 401 Unauthorized 
+    - Results from not sending Basic Auth credentials 
+    - Also results from attempting to update another user's data 
+  - 404 Not Found 
+- Success Response 
+  - `200 OK` 
+  - Content:
+  ```
+  {
+    "id": int, 
+    "listId": int,
+    "content": string, 
+    "comments": string,
+    "complete": bool,
+    "createdAt": string,
+    "updatedAt": string
+  }
+  ```
+
+#### `/list-items/:id`
+- Method 
+  - DELETE 
+- Authentication 
+  - Basic Auth 
+- URL Params 
+  - Required 
+    - `id=[number]` list item primary key
+- Error Responses 
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials 
+    - Also results from attempting to delete another user's data 
+  - 404 Not Found 
+- Success Response 
+  - `204 No Content`
+
 ## License
 
 MIT
