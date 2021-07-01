@@ -21,7 +21,8 @@ app.use(express.urlencoded({ extended: false }))
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to my to-do list API! To view the documentation visit https://github.com/michaelacook/to-do-api#endpoints"
+    message:
+      "Welcome to my to-do list API! To view the documentation visit https://github.com/michaelacook/to-do-api#endpoints",
   })
 })
 

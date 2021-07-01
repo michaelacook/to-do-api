@@ -25,6 +25,21 @@ router.get(
   }
 )
 
+router.get(
+  "/auth/:email",
+  authMiddleWare,
+  userExistsMiddleware,
+  async (req, res, next) => {
+    try {
+      const email = req.params.email
+      const user = await userService.getUser(email)
+      return res.json(user)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
 router.post("/", validateUserMiddleware, async (req, res, next) => {
   try {
     const { body } = req

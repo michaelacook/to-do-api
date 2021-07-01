@@ -6,7 +6,7 @@
 
 A REST API for a to do list application. The motivation for this project was practical - I need a to do app that I will actually use, so I decided to make one myself to get practice with database programming and writing server tests. A future project will create a React client to consume the API.
 
-## Running Locally 
+## Running Locally
 
 `git clone https://github.com/michaelacook/to-do-api.git`
 
@@ -16,10 +16,12 @@ A REST API for a to do list application. The motivation for this project was pra
 
 `npm start`
 
-## Stack 
+## Stack
+
 The API runs on Node.js and Express.js, and a PostgreSQL database. SQLite is used in development.
 
 ## About
+
 At a high level, the application allows users to create categories, or folders, which contain lists. Lists contain list items. CRUD operations can be performed on categories, lists, and list items. It's pretty basic.
 
 ### Architecture
@@ -144,8 +146,8 @@ This project uses integration tests to test server responses rather than unit te
 - Successful Response
   - `204 No Content`
 
-
 #### `/categories`
+
 - Method
   - GET
 - Authentication
@@ -154,8 +156,8 @@ This project uses integration tests to test server responses rather than unit te
   - 401 Unauthorized
     - Results from not sending Basic Auth credentials
 - Success Response
-  - `200 OK` 
-  - Content: 
+  - `200 OK`
+  - Content:
   ```
   [
     {
@@ -177,7 +179,7 @@ This project uses integration tests to test server responses rather than unit te
               "listId": int,
               "content": "string",
               "comments": "string",
-              "complete": boolean, 
+              "complete": boolean,
               "createdAt": "string",
               "updatedAt": "string
             }
@@ -191,234 +193,241 @@ This project uses integration tests to test server responses rather than unit te
   ```
 
 #### `/categories/:id`
+
 - Method
-  - GET 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
+  - GET
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
     - `id=[number]` category primary key
-- Error Responses 
-  - 401 Unauthorized 
+- Error Responses
+  - 401 Unauthorized
     - Results from not sending Basic Auth credentials
     - Also results form requesting another user's data
-  - 404 Not Found 
-- Success Response
-  - `200 OK` 
-  - Content:
-  ```
-  {
-    "id": int, 
-    "userId": int, 
-    "title": string, 
-    "createdAt": string, 
-    "updatedAt": string, 
-    "Lists": array
-  }
-  ```
-
-#### `/categories`
-- Method 
-  - POST 
-- Authentication 
-  - Basic Auth 
-- Data Params 
-  - Required 
-    - `userId=[number]` - user primary key 
-    - `title=[string]`
-- Error Responses 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-  - 400 Bad Request 
-    - Results from not sending required data params 
-- Success Response 
-  - `201 Created` 
-  - Content: 
-  ```
-  {
-    "id": int, 
-    "userId": int, 
-    "title": string, 
-    "createdAt": string, 
-    "updatedAt": string
-  }
-  ```
-
-#### `/categories/:id`
-- Method 
-  - PUT 
-- Authentication 
-  - Basic Auth
-- URL Params 
-  - Required 
-    - `id=[number]` category primary key
-- Data Params 
-  - Required 
-    - `title=[string]`
-    - Currently only the title can be updated
-- Error Responses 
-  - 400 Bad Request 
-    - Results from not sending a `title` value 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to update another user's data 
   - 404 Not Found
 - Success Response
   - `200 OK`
   - Content:
   ```
   {
-    "id": int, 
-    "userId": int, 
-    "title": string, 
-    "createdAt": string, 
-    "updatedAt": string, 
+    "id": int,
+    "userId": int,
+    "title": string,
+    "createdAt": string,
+    "updatedAt": string,
+    "Lists": array
+  }
+  ```
+
+#### `/categories`
+
+- Method
+  - POST
+- Authentication
+  - Basic Auth
+- Data Params
+  - Required
+    - `userId=[number]` - user primary key
+    - `title=[string]`
+- Error Responses
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+  - 400 Bad Request
+    - Results from not sending required data params
+- Success Response
+  - `201 Created`
+  - Content:
+  ```
+  {
+    "id": int,
+    "userId": int,
+    "title": string,
+    "createdAt": string,
+    "updatedAt": string
+  }
+  ```
+
+#### `/categories/:id`
+
+- Method
+  - PUT
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
+    - `id=[number]` category primary key
+- Data Params
+  - Required
+    - `title=[string]`
+    - Currently only the title can be updated
+- Error Responses
+  - 400 Bad Request
+    - Results from not sending a `title` value
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to update another user's data
+  - 404 Not Found
+- Success Response
+  - `200 OK`
+  - Content:
+  ```
+  {
+    "id": int,
+    "userId": int,
+    "title": string,
+    "createdAt": string,
+    "updatedAt": string,
     "Lists": array
   }
   ```
 
 #### `/categories/:id`
-- Method 
-  - DELETE 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
-    - `id=[number]` - category primary key 
-- Error Responses 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to delete another user's data 
-  - 404 Not Found 
-- Success Response 
+
+- Method
+  - DELETE
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
+    - `id=[number]` - category primary key
+- Error Responses
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to delete another user's data
+  - 404 Not Found
+- Success Response
   - `204 No Content`
 
-
 #### `/lists/:id`
-- Method 
-  - GET 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
-    - `id=[number]` list primary key 
-- Error Responses 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to access another user's data 
-  - 404 Not Found 
-- Success Response 
+
+- Method
+  - GET
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
+    - `id=[number]` list primary key
+- Error Responses
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to access another user's data
+  - 404 Not Found
+- Success Response
   - `200 OK`
-  - Content 
-  ``` 
+  - Content
+  ```
   {
-    "id": int, 
+    "id": int,
     "categoryId": int,
-    "title": string, 
-    "createdAt": string, 
+    "title": string,
+    "createdAt": string,
     "updatedAt": string,
     "ListItems": array
   }
   ```
 
 #### `/lists`
-- Method 
-  - POST 
-- Authentication 
-  - Basic Auth 
-- Data Params 
-  - Required 
+
+- Method
+  - POST
+- Authentication
+  - Basic Auth
+- Data Params
+  - Required
     - `categoryId=[number]` associated category
     - `title=[string]`
-- Error Responses 
+- Error Responses
   - 400 Bad Request
-    - Results from not sending required data params 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to access another user's data 
-- Success Response 
-  - `201 Created` 
-  - Content: 
+    - Results from not sending required data params
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to access another user's data
+- Success Response
+  - `201 Created`
+  - Content:
   ```
   {
-    "id": int, 
+    "id": int,
     "categoryId": int,
-    "title": string, 
-    "createdAt": string, 
+    "title": string,
+    "createdAt": string,
     "updatedAt": string
   }
   ```
 
 #### `/lists/:id`
-- Method 
-  - PUT 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
+
+- Method
+  - PUT
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
     - `id=[number]` list primary key
-- Data Params 
-  - Required 
+- Data Params
+  - Required
     - `title=[string]`
-    - Currently only list title can be updated 
-- Error Responses 
-  - 400 Bad Request 
-    - Results from not sending required data params 
-    - 401 Unauthorized 
-      - Results from not sending Basic Auth credentials 
-      - Also results from attempting to update another user's data 
-- Success Response 
-  - `200 OK` 
-  - Content: 
-  ``` 
+    - Currently only list title can be updated
+- Error Responses
+  - 400 Bad Request
+    - Results from not sending required data params
+    - 401 Unauthorized
+      - Results from not sending Basic Auth credentials
+      - Also results from attempting to update another user's data
+- Success Response
+  - `200 OK`
+  - Content:
+  ```
   {
-    "id": int, 
+    "id": int,
     "categoryId": int,
-    "title": string, 
-    "createdAt": string, 
+    "title": string,
+    "createdAt": string,
     "updatedAt": string,
     "ListItems": array
   }
   ```
 
 #### `/lists/:id`
-- Method 
+
+- Method
   - DELETE
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
     - `id=[number]` list primary key
 - Error Responses
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to update another user's data 
-  - 404 Not Found 
-- Success Response 
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to update another user's data
+  - 404 Not Found
+- Success Response
   - `204 No Content`
 
-
 #### `/list-items/:id`
-- Method 
-  - GET 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
+
+- Method
+  - GET
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
     - `id=[number]` list item primary key
-- Error Responses 
-  - 401 Unauthorized 
+- Error Responses
+  - 401 Unauthorized
     - Results from not sending Basic Auth credential s
-    - Also results from attempting to access another user's data 
+    - Also results from attempting to access another user's data
   - 404 Not Foun d
-- Success Response 
-  - `200 OK` 
-  - Content: 
+- Success Response
+  - `200 OK`
+  - Content:
   ```
   {
-    "id": int, 
+    "id": int,
     "listId": int,
-    "content": string, 
+    "content": string,
     "comments": string,
     "complete": bool,
     "createdAt": string,
@@ -427,63 +436,31 @@ This project uses integration tests to test server responses rather than unit te
   ```
 
 #### `/list-items`
-- Method 
-  - POST 
-- Authentication 
-  - Basic Auth 
-- Data Params 
-  - Required 
-    - `listId=[number]` primary key for associated list 
+
+- Method
+  - POST
+- Authentication
+  - Basic Auth
+- Data Params
+  - Required
+    - `listId=[number]` primary key for associated list
     - `content=[string]` to-do content
-  - Optional 
+  - Optional
     - `comments=[string]`
     - `complete=[boolean]`
-- Error Responses 
-  - 400 Bad Request 
-    - Results from not sending the required data params 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-- Success Response 
+- Error Responses
+  - 400 Bad Request
+    - Results from not sending the required data params
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+- Success Response
   - `201 Created`
-  - Content: 
-  ```
-  {
-    "id": int, 
-    "listId": int,
-    "content": string, 
-    "comments": string,
-    "complete": bool,
-    "createdAt": string,
-    "updatedAt": string
-  }
-  ```
-
-#### `/list-items/:id`
-- Method 
-  - PUT 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required
-    - `id=[number]` list item primary key
-- Data Params 
-  - Required 
-    - Any
-    - Sending a PUT request with no data params results in a 400 Bad Request
-- Error Responses 
-  - 400 Bad Request 
-  - 401 Unauthorized 
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to update another user's data 
-  - 404 Not Found 
-- Success Response 
-  - `200 OK` 
   - Content:
   ```
   {
-    "id": int, 
+    "id": int,
     "listId": int,
-    "content": string, 
+    "content": string,
     "comments": string,
     "complete": bool,
     "createdAt": string,
@@ -492,19 +469,54 @@ This project uses integration tests to test server responses rather than unit te
   ```
 
 #### `/list-items/:id`
-- Method 
-  - DELETE 
-- Authentication 
-  - Basic Auth 
-- URL Params 
-  - Required 
+
+- Method
+  - PUT
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
     - `id=[number]` list item primary key
-- Error Responses 
+- Data Params
+  - Required
+    - Any
+    - Sending a PUT request with no data params results in a 400 Bad Request
+- Error Responses
+  - 400 Bad Request
   - 401 Unauthorized
-    - Results from not sending Basic Auth credentials 
-    - Also results from attempting to delete another user's data 
-  - 404 Not Found 
-- Success Response 
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to update another user's data
+  - 404 Not Found
+- Success Response
+  - `200 OK`
+  - Content:
+  ```
+  {
+    "id": int,
+    "listId": int,
+    "content": string,
+    "comments": string,
+    "complete": bool,
+    "createdAt": string,
+    "updatedAt": string
+  }
+  ```
+
+#### `/list-items/:id`
+
+- Method
+  - DELETE
+- Authentication
+  - Basic Auth
+- URL Params
+  - Required
+    - `id=[number]` list item primary key
+- Error Responses
+  - 401 Unauthorized
+    - Results from not sending Basic Auth credentials
+    - Also results from attempting to delete another user's data
+  - 404 Not Found
+- Success Response
   - `204 No Content`
 
 ## License
