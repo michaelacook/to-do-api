@@ -8,6 +8,7 @@ const authMiddleWare = require("../middleware/authentication")()
 const userExistsMiddleware = require("../middleware/userExists")()
 const validateUserMiddleware = require("../middleware/validateUser")()
 const authorizationMiddleware = require("../middleware/authorization")()
+const userEmailExistsMiddleware = require("../middleware/emailExists")()
 
 router.get(
   "/:id",
@@ -27,8 +28,8 @@ router.get(
 
 router.get(
   "/auth/:email",
+  userEmailExistsMiddleware,
   authMiddleWare,
-  userExistsMiddleware,
   async (req, res, next) => {
     try {
       const email = req.params.email
@@ -47,6 +48,7 @@ router.post("/", validateUserMiddleware, async (req, res, next) => {
     await userActions.initializeAccount(user)
     return res.status(201).json(user)
   } catch (err) {
+    console.log(err)
     next(err)
   }
 })

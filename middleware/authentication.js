@@ -18,17 +18,17 @@ module.exports = () => {
       const user = await userService.getUser(name)
       if (user) {
         const authed = bcrypt.compareSync(pass, user.password)
+        console.log(authed)
         if (authed) {
           req.user = user
           return next()
+        } else {
+          message = "Incorrect email or password"
         }
       } else {
-        message = "User not found."
+        message = "User not found"
       }
-    } else {
-      message = "Incorrect email or password."
     }
-    console.log(message)
     return res.status(401).json({ message })
   }
 }
