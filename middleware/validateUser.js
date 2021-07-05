@@ -7,7 +7,7 @@ module.exports = () => {
     const { body } = req
     if (!body.email || !body.password) {
       return res.status(400).json({
-        error: "User must have email and password",
+        message: "User must have email and password",
       })
     }
     return next()
