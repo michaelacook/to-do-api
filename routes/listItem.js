@@ -71,7 +71,7 @@ router.delete(
     try {
       const { id } = req.params
       await listItemService.deleteListItem(id)
-      return res.status(204).end()
+      return res.status(200).json({})
     } catch (err) {
       next(err)
     }
