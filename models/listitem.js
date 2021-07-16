@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       content: DataTypes.TEXT,
       comments: DataTypes.TEXT,
       complete: DataTypes.BOOLEAN,
+      pinned: DataTypes.BOOLEAN,
     },
     {
       sequelize,
