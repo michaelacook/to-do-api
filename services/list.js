@@ -47,6 +47,29 @@ module.exports = {
   },
 
   /**
+   * Get all pinned to-do lists by user id
+   * @param {Number} userId - user PK
+   * @returns {Object|Array}
+   */
+  async getPinnedLists(userId) {
+    try {
+      await List.sync()
+      const pinned = await List.findAll({
+        where: {
+          userId,
+          pinned: true,
+        },
+        include: {
+          model: ListItem,
+        },
+      })
+      return pinned
+    } catch (err) {
+      Promise.reject(err)
+    }
+  },
+
+  /**
    * Add a new to-do list to the database
    * @param {Object} destructured - payload containing categoryId, userId and title
    * @returns {Promise} created list
