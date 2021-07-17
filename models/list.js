@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   List.init(
     {
       categoryId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       title: DataTypes.STRING,
       pinned: DataTypes.BOOLEAN,
     },

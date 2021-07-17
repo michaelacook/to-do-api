@@ -5,6 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert("Lists", [
       {
         categoryId: 1,
+        userId: 1,
         title: "To Do App",
         pinned: false,
         createdAt: new Date(),
