@@ -43,17 +43,11 @@ router.put(
   authMiddleware,
   authorizationMiddleware,
   listExistsMiddleware,
-  (req, res, next) => {
-    if (!req.body.title) {
-      return res.status(400).end()
-    }
-    return next()
-  },
   async (req, res, next) => {
     try {
       const { body } = req
       const { id } = req.params
-      const list = await listService.updateListTitle(id, body.title)
+      const list = await listService.updateList(id, body)
       return res.status(200).json(list)
     } catch (err) {
       next(err)
