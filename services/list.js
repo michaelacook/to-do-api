@@ -48,14 +48,15 @@ module.exports = {
 
   /**
    * Add a new to-do list to the database
-   * @param {Object} destructured - payload containing categoryId and title
+   * @param {Object} destructured - payload containing categoryId, userId and title
    * @returns {Promise} created list
    */
-  async addList({ categoryId, title }) {
+  async addList({ categoryId, userId, title }) {
     try {
       await List.sync()
       const list = await List.create({
         categoryId,
+        userId,
         title,
         pinned: false,
       })
