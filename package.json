@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "pretty": "prettier --write --no-semi .",
-    "test": "mocha --exit ./test/integration/index.js"
+    "test": "mocha --exit ./test/integration/index.js",
+    "new-test-db": "rm dev-db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
