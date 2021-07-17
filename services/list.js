@@ -57,6 +57,7 @@ module.exports = {
       const list = await List.create({
         categoryId,
         title,
+        pinned: false,
       })
       return list
     } catch (err) {
