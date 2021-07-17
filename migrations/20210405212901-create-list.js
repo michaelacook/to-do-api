@@ -17,6 +17,9 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
+      pinned: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

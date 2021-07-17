@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       categoryId: DataTypes.INTEGER,
       title: DataTypes.STRING,
+      pinned: DataTypes.BOOLEAN,
     },
     {
       sequelize,
