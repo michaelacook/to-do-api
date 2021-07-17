@@ -6,6 +6,7 @@ module.exports = {
       {
         categoryId: 1,
         title: "To Do App",
+        pinned: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
