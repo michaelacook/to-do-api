@@ -23,6 +23,16 @@ router.get(
   }
 )
 
+router.get("/pinned", authMiddleware, async (req, res, next) => {
+  try {
+    const id = req.user.id
+    const pinned = await listService.getPinnedLists(id)
+    return res.status(200).json(pinned)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post(
   "/",
   authMiddleware,
