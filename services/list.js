@@ -66,15 +66,17 @@ module.exports = {
   },
 
   /**
-   * Update a list's title
-   * @param {Object} destructured - payload containing list id and new title
+   * Update a list
+   * @param {Object} destructured - payload
    * @returns {Promise} updated list
    */
-  async updateListTitle(id, title) {
+  async updateList(id, payload) {
     try {
       await List.sync()
       const list = await List.findByPk(id)
-      list.title = title
+      for (let key in payload) {
+        list[key] = payload[key]
+      }
       await list.save()
       await list.reload()
       return list
