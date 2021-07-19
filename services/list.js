@@ -57,7 +57,7 @@ module.exports = {
       await List.sync()
       const pinned = await List.findAll({
         where: {
-          [Op.and]: [{ userId }, { pinned: 1 }],
+          [Op.and]: [{ userId }, { pinned: true }],
         },
         include: {
           model: ListItem,
