@@ -1,4 +1,5 @@
 const { Category, List, ListItem } = require("../models/index")
+const { Op } = require("sequelize")
 
 module.exports = {
   /**
@@ -56,8 +57,7 @@ module.exports = {
       await List.sync()
       const pinned = await List.findAll({
         where: {
-          userId,
-          pinned: true,
+          [Op.and]: [{ userId }, { pinned: 1 }],
         },
         include: {
           model: ListItem,
