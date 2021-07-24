@@ -7,23 +7,18 @@ module.exports = {
    * @returns {Promise} categories or error
    */
   async getAllCategories(userId) {
-    try {
-      await Category.sync()
-      const categories = await Category.findAll({
-        where: {
-          userId,
-        },
+    await Category.sync()
+    return await Category.findAll({
+      where: {
+        userId,
+      },
+      include: {
+        model: List,
         include: {
-          model: List,
-          include: {
-            model: ListItem,
-          },
+          model: ListItem,
         },
-      })
-      return categories
-    } catch (err) {
-      return Promise.reject(err.message)
-    }
+      },
+    })
   },
 
   /**
@@ -33,24 +28,19 @@ module.exports = {
    * @returns {Promise} category object
    */
   async getCategory(id, lists = false) {
-    try {
-      await Category.sync()
-      const options = {
-        where: {
-          id,
-        },
+    await Category.sync()
+    const options = {
+      where: {
+        id,
+      },
+      include: {
+        model: List,
         include: {
-          model: List,
-          include: {
-            model: ListItem,
-          },
+          model: ListItem,
         },
-      }
-      const category = await Category.findOne(options)
-      return category
-    } catch (err) {
-      return Promise.reject(err.message)
+      },
     }
+    return await Category.findOne(options)
   },
 
   /**
@@ -59,16 +49,11 @@ module.exports = {
    * @returns {Promise} created category
    */
   async addCategory({ userId, title }) {
-    try {
-      await Category.sync()
-      const category = await Category.create({
-        userId,
-        title,
-      })
-      return category
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await Category.sync()
+    return await Category.create({
+      userId,
+      title,
+    })
   },
 
   /**
@@ -79,26 +64,22 @@ module.exports = {
    * @returns {Object} updated category
    */
   async updateCategoryTitle(id, title) {
-    try {
-      await Category.sync()
-      const category = await Category.findOne({
-        where: {
-          id: id,
-        },
+    await Category.sync()
+    const category = await Category.findOne({
+      where: {
+        id: id,
+      },
+      include: {
+        model: List,
         include: {
-          model: List,
-          include: {
-            model: ListItem,
-          },
+          model: ListItem,
         },
-      })
-      category.title = title
-      await category.save()
-      await category.reload()
-      return category
-    } catch (err) {
-      return Promise.reject(err)
-    }
+      },
+    })
+    category.title = title
+    await category.save()
+    await category.reload()
+    return category
   },
 
   /**
@@ -108,13 +89,9 @@ module.exports = {
    * @returns {Promise} true
    */
   async deleteCategory(id) {
-    try {
-      await Category.sync()
-      const category = await Category.findByPk(id)
-      await category.destroy()
-      return true
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await Category.sync()
+    const category = await Category.findByPk(id)
+    await category.destroy()
+    return true
   },
 }

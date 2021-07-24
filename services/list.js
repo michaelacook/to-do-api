@@ -8,20 +8,15 @@ module.exports = {
    * @returns {Promise} list object
    */
   async getList(id) {
-    try {
-      await List.sync()
-      const list = await List.findOne({
-        where: {
-          id,
-        },
-        include: {
-          model: ListItem,
-        },
-      })
-      return list
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await List.sync()
+    return await List.findOne({
+      where: {
+        id,
+      },
+      include: {
+        model: ListItem,
+      },
+    })
   },
 
   /**
@@ -31,20 +26,16 @@ module.exports = {
    * @returns {Object|Array}
    */
   async _getAllLists(categoryId) {
-    try {
-      await Category.sync()
-      const category = await Category.findOne({
-        where: {
-          id: categoryId,
-        },
-        include: {
-          model: List,
-        },
-      })
-      return category.Lists
-    } catch (err) {
-      Promise.reject(err)
-    }
+    await Category.sync()
+    const category = await Category.findOne({
+      where: {
+        id: categoryId,
+      },
+      include: {
+        model: List,
+      },
+    })
+    return category.Lists
   },
 
   /**
@@ -53,20 +44,15 @@ module.exports = {
    * @returns {Object|Array}
    */
   async getPinnedLists(userId) {
-    try {
-      await List.sync()
-      const pinned = await List.findAll({
-        where: {
-          [Op.and]: [{ userId }, { pinned: true }],
-        },
-        include: {
-          model: ListItem,
-        },
-      })
-      return pinned
-    } catch (err) {
-      Promise.reject(err)
-    }
+    await List.sync()
+    return await List.findAll({
+      where: {
+        [Op.and]: [{ userId }, { pinned: true }],
+      },
+      include: {
+        model: ListItem,
+      },
+    })
   },
 
   /**
@@ -75,18 +61,13 @@ module.exports = {
    * @returns {Promise} created list
    */
   async addList({ categoryId, userId, title }) {
-    try {
-      await List.sync()
-      const list = await List.create({
-        categoryId,
-        userId,
-        title,
-        pinned: false,
-      })
-      return list
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await List.sync()
+    return await List.create({
+      categoryId,
+      userId,
+      title,
+      pinned: false,
+    })
   },
 
   /**
@@ -95,18 +76,14 @@ module.exports = {
    * @returns {Promise} updated list
    */
   async updateList(id, payload) {
-    try {
-      await List.sync()
-      const list = await List.findByPk(id)
-      for (let key in payload) {
-        list[key] = payload[key]
-      }
-      await list.save()
-      await list.reload()
-      return list
-    } catch (err) {
-      return Promise.reject(err)
+    await List.sync()
+    const list = await List.findByPk(id)
+    for (let key in payload) {
+      list[key] = payload[key]
     }
+    await list.save()
+    await list.reload()
+    return list
   },
 
   /**
@@ -116,13 +93,9 @@ module.exports = {
    * @returns {Promise} true
    */
   async deleteList(id) {
-    try {
-      await List.sync()
-      const list = await List.findByPk(id)
-      await list.destroy()
-      return true
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await List.sync()
+    const list = await List.findByPk(id)
+    await list.destroy()
+    return true
   },
 }

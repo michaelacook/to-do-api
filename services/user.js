@@ -8,17 +8,12 @@ module.exports = {
    * @returns {Promise} user object
    */
   async getUser(email) {
-    try {
-      await User.sync()
-      const user = await User.findOne({
-        where: {
-          email,
-        },
-      })
-      return user
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await User.sync()
+    return await User.findOne({
+      where: {
+        email,
+      },
+    })
   },
 
   /**
@@ -27,13 +22,8 @@ module.exports = {
    * @returns {Promise} user object
    */
   async getUserById(id) {
-    try {
-      await User.sync()
-      const user = await User.findByPk(id)
-      return user
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await User.sync()
+    return await User.findByPk(id)
   },
 
   /**
@@ -42,12 +32,7 @@ module.exports = {
    * @returns {Object|Array} users
    */
   async _getAllUsers() {
-    try {
-      const users = await User.findAll()
-      return users
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    return await User.findAll()
   },
 
   /**
@@ -56,19 +41,14 @@ module.exports = {
    * @returns {Promise} created user object
    */
   async createUser(payload) {
-    try {
-      await User.sync()
-      payload.password = bcrypt.hashSync(payload.password, 8)
-      const user = await User.create({
-        email: payload.email,
-        password: payload.password,
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-      })
-      return user
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await User.sync()
+    payload.password = bcrypt.hashSync(payload.password, 8)
+    return await User.create({
+      email: payload.email,
+      password: payload.password,
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+    })
   },
 
   /**
@@ -78,23 +58,19 @@ module.exports = {
    * @returns {Promise} true
    */
   async updateUser(id, payload) {
-    try {
-      await User.sync()
-      const user = await User.findByPk(id)
-      for (let key in payload) {
-        if (key === "password") {
-          user[key] = bcrypt.hashSync(payload[key], 8)
-          await user.save()
-          break
-        }
-        user[key] = payload[key]
+    await User.sync()
+    const user = await User.findByPk(id)
+    for (let key in payload) {
+      if (key === "password") {
+        user[key] = bcrypt.hashSync(payload[key], 8)
         await user.save()
+        break
       }
-      await user.reload()
-      return user
-    } catch (err) {
-      return Promise.reject(err)
+      user[key] = payload[key]
+      await user.save()
     }
+    await user.reload()
+    return user
   },
 
   /**
@@ -104,13 +80,9 @@ module.exports = {
    * @returns {Promise} true
    */
   async deleteUser(id) {
-    try {
-      await User.sync()
-      const user = await User.findByPk(id)
-      await user.destroy()
-      return true
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await User.sync()
+    const user = await User.findByPk(id)
+    await user.destroy()
+    return true
   },
 }

@@ -7,13 +7,8 @@ module.exports = {
    * @returns {Promise} listItem
    */
   async getListItem(id) {
-    try {
-      await ListItem.sync()
-      const listItem = await ListItem.findByPk(id)
-      return listItem
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await ListItem.sync()
+    return await ListItem.findByPk(id)
   },
 
   /**
@@ -22,13 +17,8 @@ module.exports = {
    * @returns {Promise} created list item
    */
   async createListItem(payload) {
-    try {
-      await ListItem.sync()
-      const listItem = await ListItem.create(payload)
-      return listItem
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await ListItem.sync()
+    return await ListItem.create(payload)
   },
 
   /**
@@ -38,18 +28,14 @@ module.exports = {
    * @returns {Promise} updated list item
    */
   async updateListItem(id, payload) {
-    try {
-      await ListItem.sync()
-      const listItem = await ListItem.findByPk(id)
-      for (let key in payload) {
-        listItem[key] = payload[key]
-      }
-      await listItem.save()
-      await listItem.reload()
-      return listItem
-    } catch (err) {
-      return Promise.reject(err)
+    await ListItem.sync()
+    const listItem = await ListItem.findByPk(id)
+    for (let key in payload) {
+      listItem[key] = payload[key]
     }
+    await listItem.save()
+    await listItem.reload()
+    return listItem
   },
 
   /**
@@ -58,13 +44,9 @@ module.exports = {
    * @returns {Promise} true
    */
   async deleteListItem(id) {
-    try {
-      await ListItem.sync()
-      const listItem = await ListItem.findByPk(id)
-      await listItem.destroy()
-      return true
-    } catch (err) {
-      return Promise.reject(err)
-    }
+    await ListItem.sync()
+    const listItem = await ListItem.findByPk(id)
+    await listItem.destroy()
+    return true
   },
 }
