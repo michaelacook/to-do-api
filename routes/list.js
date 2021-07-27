@@ -53,6 +53,13 @@ router.put(
   authMiddleware,
   authorizationMiddleware,
   listExistsMiddleware,
+  (req, res, next) => {
+    if (!Object.keys(req.body).length) {
+      return res.status(400).end()
+    } else {
+      next()
+    }
+  },
   async (req, res, next) => {
     try {
       const { body } = req
